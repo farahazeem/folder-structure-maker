@@ -1,4 +1,12 @@
 import { Component } from '@angular/core';
+interface Tree {
+	root: TreeNode;
+}
+ 
+interface TreeNode {
+	label: string;
+	children: TreeNode[];
+}
 
 @Component({
   selector: 'app-root',

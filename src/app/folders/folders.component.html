@@ -1,0 +1,126 @@
+<button type="button" class="createFolder" (click)="displayForm()">Add folder to root</button>
+<div>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+        <mat-tree-node *matTreeNodeDef="let node">
+            <li class="mat-tree-node">
+                <!--Folder icon-->
+                <svg *ngIf="node.type == 'folder'" aria-hidden="true" focusable="false" data-prefix="far" data-icon="folder-open" class="svg-icon svg-inline--fa fa-folder-open fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                    <path fill="currentColor" d="M527.9 224H480v-48c0-26.5-21.5-48-48-48H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h400c16.5 0 31.9-8.5 40.7-22.6l79.9-128c20-31.9-3-73.4-40.7-73.4zM48 118c0-3.3 2.7-6 6-6h134.1l64 64H426c3.3 0 6 2.7 6 6v42H152c-16.8 0-32.4 8.8-41.1 23.2L48 351.4zm400 282H72l77.2-128H528z"></path>
+                </svg>
+                <!--File icon-->
+                <svg *ngIf="node.type == 'file'" aria-hidden="true" focusable="false" data-prefix="far" data-icon="file" class="svg-icon svg-inline--fa fa-file fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                    <path fill="currentColor" d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM332.1 128H256V51.9l76.1 76.1zM48 464V48h160v104c0 13.3 10.7 24 24 24h104v288H48z">
+                    </path>
+                </svg>
+                {{node.name}}
+                <!--File Add icon-->
+                <svg *ngIf="node.type == 'folder'" (click)="fileOrFolder(node)"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="316.513px" height="316.513px" viewBox="0 0 316.513 316.513" style="enable-background:new 0 0 316.513 316.513;" xml:space="preserve" class="svg-icon hidden-icon">
+                <path d="M158.253,0C71,0,0.012,71.001,0.012,158.263c0,87.256,70.989,158.25,158.241,158.25c87.259,0,158.248-70.994,158.248-158.25C316.501,71.001,245.518,0,158.253,0z M230.891,177.982h-57.748v52.914c0,7.428-4.864,13.438-12.301,13.438c-7.422,0-12.298-6.017-12.298-13.438v-52.914H85.634c-7.44,0-13.454-4.864-13.454-12.298s6.014-12.301,13.454-12.301h62.909V85.616c0-7.434,4.876-13.453,12.298-13.453c7.437,0,12.301,6.02,12.301,13.453v67.768h57.748c7.439,0,13.456,4.867,13.456,12.301S238.33,177.982,230.891,177.982z" />
+                </svg>
+                <!--File Delete icon-->
+                <svg width="512px" height="512px" (click)="delete(node)" viewBox="0 0 512 512" id="_x30_1" style="enable-background:new 0 0 512 512;" version="1.1" xml:space="preserve" class="svg-icon hidden-icon" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink"><circle id="circle1" r="30" cx="34" cy="34" style="fill: red; stroke: blue; stroke-width: 2" /><g><path d="M298.656,187.5c-10.096,0-18.281,8.185-18.281,18.281v129.188c0,10.096,8.185,18.281,18.281,18.281   s18.281-8.185,18.281-18.281V205.781C316.938,195.685,308.753,187.5,298.656,187.5z" />
+                    <path d="M256,0C114.615,0,0,114.615,0,256s114.615,256,256,256s256-114.615,256-256S397.385,0,256,0z M365.688,163.125v202.312   c0,20.193-16.37,36.562-36.562,36.562h-146.25c-20.193,0-36.562-16.37-36.562-36.562V163.125   c-13.462,0-24.375-10.913-24.375-24.375s10.913-24.375,24.375-24.375h49.796c3.232,0,6.332-1.284,8.618-3.57l17.236-17.236   c2.286-2.285,5.385-3.57,8.618-3.57h50.841c3.232,0,6.332,1.284,8.618,3.57l17.236,17.236c2.286,2.286,5.385,3.57,8.618,3.57   h49.795c13.462,0,24.375,10.913,24.375,24.375S379.149,163.125,365.688,163.125z" /><path d="M213.344,187.5c-10.096,0-18.281,8.185-18.281,18.281v129.188c0,10.096,8.185,18.281,18.281,18.281   s18.281-8.185,18.281-18.281V205.781C231.625,195.685,223.44,187.5,213.344,187.5z" /></g>
+                </svg>
+            </li>
+            <li class="formForAddField">
+                <div id="fileOrFolder">
+                    <button type="button" (click)="displayChildForm('file')" class="btn btn-primary">File</button>
+                    <button type="button" (click)="displayChildForm('folder')" class="btn btn-primary">Folder</button>
+                </div>
+                <div id="addFolder">
+                    <!--Folder icon-->
+                    <svg *ngIf="typeOfFolder == 'folder'" aria-hidden="true" focusable="false" data-prefix="far" data-icon="folder-open" class="svg-icon svg-inline--fa fa-folder-open fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path fill="currentColor" d="M527.9 224H480v-48c0-26.5-21.5-48-48-48H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h400c16.5 0 31.9-8.5 40.7-22.6l79.9-128c20-31.9-3-73.4-40.7-73.4zM48 118c0-3.3 2.7-6 6-6h134.1l64 64H426c3.3 0 6 2.7 6 6v42H152c-16.8 0-32.4 8.8-41.1 23.2L48 351.4zm400 282H72l77.2-128H528z">
+                        </path>
+                    </svg>
+                    <!--File icon-->
+                    <svg *ngIf="typeOfFolder == 'file'" aria-hidden="true" focusable="false" data-prefix="far" data-icon="file" class="svg-icon svg-inline--fa fa-file fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                    <path fill="currentColor" d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM332.1 128H256V51.9l76.1 76.1zM48 464V48h160v104c0 13.3 10.7 24 24 24h104v288H48z">
+                    </path>
+                    </svg>
+                    <input type="text" id="child"/>
+                    <!--File Save icon-->
+                    <svg version="1.1" id="Capa_1" (click)="addChildren()" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="svg-icon" width="46.124px" height="46.125px" viewBox="0 0 46.124 46.125" style="enable-background:new 0 0 46.124 46.125;" xml:space="preserve"> <g> <g> <g>
+                        <path d="M37.727,0.062H8.397C3.759,0.062,0,3.822,0,8.46v29.204c0,4.639,3.759,8.398,8.397,8.398h29.33c4.637,0,8.397-3.76,8.397-8.398V8.46C46.125,3.822,42.365,0.062,37.727,0.062z M38.007,19.14L22.142,35.005c-0.673,0.674-1.586,1.052-2.538,1.052s-1.865-0.379-2.538-1.052l-7.863-7.863c-1.401-1.402-1.401-3.674,0.001-5.077c0.673-0.673,1.585-1.051,2.537-1.051c0.952,0,1.864,0.378,2.537,1.051l4.686,4.687c0.17,0.17,0.401,0.266,0.641,0.266c0.24,0,0.471-0.096,0.641-0.266l12.686-12.687c0.674-0.673,1.586-1.052,2.539-1.052c0.951,0.001,1.864,0.379,2.537,1.052C39.409,15.467,39.409,17.739,38.007,19.14z"/></g></g></g>
+                    </svg>
+                    <!--Close Form icon-->
+                    <svg width="15px" height="15px" (click)="hideChildForm()" class="svg-icon" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.5 4.5L10.5 10.5M4.5 10.5L10.5 4.5" stroke="black"/>
+                    </svg>
+                </div>
+            </li>                  
+        </mat-tree-node>       
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+            <li class="formForAddField">
+                <div class="mat-tree-node">
+                    <!--Folder icon-->
+                    <svg *ngIf="node.type == 'folder'" aria-hidden="true" focusable="false" data-prefix="far" data-icon="folder-open" class="svg-icon svg-inline--fa fa-folder-open fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path fill="currentColor" d="M527.9 224H480v-48c0-26.5-21.5-48-48-48H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h400c16.5 0 31.9-8.5 40.7-22.6l79.9-128c20-31.9-3-73.4-40.7-73.4zM48 118c0-3.3 2.7-6 6-6h134.1l64 64H426c3.3 0 6 2.7 6 6v42H152c-16.8 0-32.4 8.8-41.1 23.2L48 351.4zm400 282H72l77.2-128H528z">
+                        </path>
+                    </svg>
+                    <!--File icon-->
+                    <svg *ngIf="node.type == 'file'" aria-hidden="true" focusable="false" data-prefix="far" data-icon="file" class="svg-icon svg-inline--fa fa-file fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                        <path fill="currentColor" d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM332.1 128H256V51.9l76.1 76.1zM48 464V48h160v104c0 13.3 10.7 24 24 24h104v288H48z">
+                        </path>
+                    </svg>
+                    {{node.name}}
+                    <!--File Add icon-->
+                    <svg *ngIf="node.type == 'folder'" (click)="fileOrFolder(node)" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="316.513px" height="316.513px" viewBox="0 0 316.513 316.513" style="enable-background:new 0 0 316.513 316.513;" xml:space="preserve" class="svg-icon hidden-icon">
+                        <path d="M158.253,0C71,0,0.012,71.001,0.012,158.263c0,87.256,70.989,158.25,158.241,158.25c87.259,0,158.248-70.994,158.248-158.25C316.501,71.001,245.518,0,158.253,0z M230.891,177.982h-57.748v52.914c0,7.428-4.864,13.438-12.301,13.438c-7.422,0-12.298-6.017-12.298-13.438v-52.914H85.634c-7.44,0-13.454-4.864-13.454-12.298s6.014-12.301,13.454-12.301h62.909V85.616c0-7.434,4.876-13.453,12.298-13.453c7.437,0,12.301,6.02,12.301,13.453v67.768h57.748c7.439,0,13.456,4.867,13.456,12.301S238.33,177.982,230.891,177.982z" />
+                    </svg>
+                    <!--File Delete icon-->
+                    <svg width="512px" height="512px" (click)="delete(node)" viewBox="0 0 512 512" id="_x30_1" style="enable-background:new 0 0 512 512;" version="1.1" xml:space="preserve" class="svg-icon hidden-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g>
+                        <path d="M298.656,187.5c-10.096,0-18.281,8.185-18.281,18.281v129.188c0,10.096,8.185,18.281,18.281,18.281   s18.281-8.185,18.281-18.281V205.781C316.938,195.685,308.753,187.5,298.656,187.5z" /><path d="M256,0C114.615,0,0,114.615,0,256s114.615,256,256,256s256-114.615,256-256S397.385,0,256,0z M365.688,163.125v202.312   c0,20.193-16.37,36.562-36.562,36.562h-146.25c-20.193,0-36.562-16.37-36.562-36.562V163.125   c-13.462,0-24.375-10.913-24.375-24.375s10.913-24.375,24.375-24.375h49.796c3.232,0,6.332-1.284,8.618-3.57l17.236-17.236   c2.286-2.285,5.385-3.57,8.618-3.57h50.841c3.232,0,6.332,1.284,8.618,3.57l17.236,17.236c2.286,2.286,5.385,3.57,8.618,3.57   h49.795c13.462,0,24.375,10.913,24.375,24.375S379.149,163.125,365.688,163.125z" /><path d="M213.344,187.5c-10.096,0-18.281,8.185-18.281,18.281v129.188c0,10.096,8.185,18.281,18.281,18.281   s18.281-8.185,18.281-18.281V205.781C231.625,195.685,223.44,187.5,213.344,187.5z" /></g>
+                    </svg>
+                </div>
+                <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+                    <ng-container matTreeNodeOutlet></ng-container>                    
+                </ul>               
+            </li>
+            <li class="formForAddField">
+                <div id="fileOrFolder">
+                    <button type="button" (click)="displayChildForm('file')" class="btn btn-primary">File</button>
+                    <button type="button" (click)="displayChildForm('folder')" class="btn btn-primary">Folder</button>
+                </div>
+                <div id="addFolder">                
+                    <!--Folder icon-->
+                    <svg *ngIf="typeOfFolder == 'folder'" aria-hidden="true" focusable="false" data-prefix="far" data-icon="folder-open" class="svg-icon svg-inline--fa fa-folder-open fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path fill="currentColor" d="M527.9 224H480v-48c0-26.5-21.5-48-48-48H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h400c16.5 0 31.9-8.5 40.7-22.6l79.9-128c20-31.9-3-73.4-40.7-73.4zM48 118c0-3.3 2.7-6 6-6h134.1l64 64H426c3.3 0 6 2.7 6 6v42H152c-16.8 0-32.4 8.8-41.1 23.2L48 351.4zm400 282H72l77.2-128H528z">
+                        </path>
+                    </svg>
+                    <!--File icon-->
+                    <svg *ngIf="typeOfFolder == 'file'" aria-hidden="true" focusable="false" data-prefix="far" data-icon="file" class="svg-icon svg-inline--fa fa-file fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                    <path fill="currentColor" d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM332.1 128H256V51.9l76.1 76.1zM48 464V48h160v104c0 13.3 10.7 24 24 24h104v288H48z">
+                    </path>
+                    </svg>
+                    <input type="text" id="child"/>
+                    <!--File Save icon-->
+                    <svg version="1.1" id="Capa_1" (click)="addChildren()" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="svg-icon" width="46.124px" height="46.125px" viewBox="0 0 46.124 46.125" style="enable-background:new 0 0 46.124 46.125;" xml:space="preserve"><g><g><g>
+                        <path d="M37.727,0.062H8.397C3.759,0.062,0,3.822,0,8.46v29.204c0,4.639,3.759,8.398,8.397,8.398h29.33c4.637,0,8.397-3.76,8.397-8.398V8.46C46.125,3.822,42.365,0.062,37.727,0.062z M38.007,19.14L22.142,35.005c-0.673,0.674-1.586,1.052-2.538,1.052s-1.865-0.379-2.538-1.052l-7.863-7.863c-1.401-1.402-1.401-3.674,0.001-5.077c0.673-0.673,1.585-1.051,2.537-1.051c0.952,0,1.864,0.378,2.537,1.051l4.686,4.687c0.17,0.17,0.401,0.266,0.641,0.266c0.24,0,0.471-0.096,0.641-0.266l12.686-12.687c0.674-0.673,1.586-1.052,2.539-1.052c0.951,0.001,1.864,0.379,2.537,1.052C39.409,15.467,39.409,17.739,38.007,19.14z"/></g></g></g>
+                    </svg>
+                    <!--Close Form icon-->
+                    <svg width="15px" height="15px" (click)="hideChildForm()" class="svg-icon" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.5 4.5L10.5 10.5M4.5 10.5L10.5 4.5" stroke="black"/>
+                    </svg>
+                </div>
+
+            </li>           
+        </mat-nested-tree-node>
+    </mat-tree>
+</div>
+
+<div id="folderForm">
+    <!--Folder icon-->
+    <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="folder-open" class="svg-icon svg-inline--fa fa-folder-open fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+        <path fill="currentColor" d="M527.9 224H480v-48c0-26.5-21.5-48-48-48H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h400c16.5 0 31.9-8.5 40.7-22.6l79.9-128c20-31.9-3-73.4-40.7-73.4zM48 118c0-3.3 2.7-6 6-6h134.1l64 64H426c3.3 0 6 2.7 6 6v42H152c-16.8 0-32.4 8.8-41.1 23.2L48 351.4zm400 282H72l77.2-128H528z"></path>
+    </svg>
+    <input type="text" id="name"/>
+    <!--Folder Save icon-->
+    <svg version="1.1" id="Capa_1" (click)="addFolderToRoot()" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="svg-icon" width="46.124px" height="46.125px" viewBox="0 0 46.124 46.125" style="enable-background:new 0 0 46.124 46.125;" xml:space="preserve"><g><g><g>
+        <path d="M37.727,0.062H8.397C3.759,0.062,0,3.822,0,8.46v29.204c0,4.639,3.759,8.398,8.397,8.398h29.33c4.637,0,8.397-3.76,8.397-8.398V8.46C46.125,3.822,42.365,0.062,37.727,0.062z M38.007,19.14L22.142,35.005c-0.673,0.674-1.586,1.052-2.538,1.052s-1.865-0.379-2.538-1.052l-7.863-7.863c-1.401-1.402-1.401-3.674,0.001-5.077c0.673-0.673,1.585-1.051,2.537-1.051c0.952,0,1.864,0.378,2.537,1.051l4.686,4.687c0.17,0.17,0.401,0.266,0.641,0.266c0.24,0,0.471-0.096,0.641-0.266l12.686-12.687c0.674-0.673,1.586-1.052,2.539-1.052c0.951,0.001,1.864,0.379,2.537,1.052C39.409,15.467,39.409,17.739,38.007,19.14z"/></g></g></g>
+    </svg>
+    <!--Close Form icon-->
+    <svg width="15px" height="15px" (click)="hideForm()" class="svg-icon" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4.5 4.5L10.5 10.5M4.5 10.5L10.5 4.5" stroke="black"/>
+    </svg>
+</div>

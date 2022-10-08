@@ -1,0 +1,103 @@
+.createFolder {
+    background-color: black;
+    color: white;
+    padding: 10px 15px;
+    margin-top: 75px;
+    margin-left: 18px;
+    border-radius: 5px;
+    margin-bottom: 15px;;
+}
+
+.svg-icon {
+    width: 24px;
+    height: 24px;
+    transform: scale(0.7); 
+}
+
+.svg-icon-bordered {
+    width: 24px;
+    height: 24px;
+    transform: scale(0.7); 
+    border: 1px solid black;
+}
+
+.hidden-icon {
+    display: none;
+}
+
+.rootNodes {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center; 
+}
+
+.childNodes {
+    margin-left: 35px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center; 
+}
+
+.formForAddField {
+    list-style-type: none;
+}
+
+.file-nodes:hover {
+    border-radius: 5px;
+    width: 200px;
+}
+.file-nodes:hover .hidden-icon{
+    display: inline-block;
+}
+
+.mat-tree {
+    margin-left: 15px;
+}
+
+.mat-tree-node {
+    max-width: 400px;
+}
+
+.mat-tree-node:hover {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.mat-tree-node:hover .hidden-icon{
+    display: inline-block;
+}
+
+.example-tree-invisible {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#folderForm {
+    border: 1px solid black;
+    width: 260px;
+    display: none;
+    margin-left: 15px;
+    border-radius: 4px;
+    align-items: center;
+    padding: 4px;
+}
+
+#fileOrFolder {
+ display: none;
+ margin-left: 90px;
+}
+
+#addFolder {
+    border: 1px solid black;
+    width: 260px;
+    display: none;
+    border-radius: 4px;
+    align-items: center;
+    padding: 4px;
+    margin-left: 90px;
+}
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
