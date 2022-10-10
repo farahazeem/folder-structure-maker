@@ -13,70 +13,21 @@ export class FoldersComponent implements OnInit {
   parentFolder: string = '';
   typeOfFolder: string = '';
   currentNode = {};
-  TREE_DATA: NodeModel[] = [
-    {
-      type: 'folder',
-      name: 'my_first_folder',
-      children: [
-        {
-          type: 'file',
-          name: 'first_doc.html',
-          id: '1'
-        },
-        {
-          type: 'file',
-          name: 'second_doc.jpeg',
-          id: '2'
-        },
-        {
-          type: 'folder',
-          name: 'my_second_folder',
-          children: [
-            {
-              type: 'file',
-              name: 'file_in_second_folder.txt',
-              id: '3'
-            },
-            {
-              type: 'folder',
-              name: 'another_folder',
-              children: [
-                {
-                  type: 'file',
-                  name: 'random.txt',
-                  id: '4'
-                },
-                {
-                  type: 'file',
-                  name: 'another_file.png',
-                  id: '5'
-                },
-                {
-                  type: 'file',
-                  name: 'helloworld.html',
-                  id: '6'
-                }
-              ],
-              id: '7'
-            }
-          ],
-          id: '8'
-        }
-      ],
-      id: '9'
-    }
-  ];
 
+  TREE_DATA: NodeModel[] = [];
   folders: NodeModel[] = [];
+
   constructor(private service: FoldersService) {
-    this.TREE_DATA = localStorage.getItem('TREE_DATA') ? JSON.parse(localStorage.getItem('TREE_DATA')) : this.TREE_DATA;
-    this.dataSource.data = this.TREE_DATA;
+    
   }
 
   ngOnInit() {
     this.service.getFolders().subscribe((res) => {
       this.folders = res;
-    })
+    });
+
+    this.TREE_DATA = localStorage.getItem('TREE_DATA') ? JSON.parse(localStorage.getItem('TREE_DATA')) : this.folders;
+    this.dataSource.data = this.TREE_DATA;
   }
 
   removeFromTree(parent, childNameToRemove) {
@@ -99,6 +50,7 @@ export class FoldersComponent implements OnInit {
 
     if (formDiv) {
       formDiv.style.display = "flex";
+      (<HTMLInputElement>document.getElementById("name")).value = '';
     }
   }
 
@@ -169,19 +121,7 @@ export class FoldersComponent implements OnInit {
     this.dataSource.data = this.TREE_DATA;
   }
 
-  addItemToNodes() {
-    var name = (<HTMLInputElement>document.getElementById("name")).value;
-    if (name) {
-      this.TREE_DATA.push(({ type: 'folder', name: name, id: '14' }));
-      localStorage.setItem('TREE_DATA', JSON.stringify(this.TREE_DATA));
-      this.dataSource.data = this.TREE_DATA;
-      const formDiv = document.getElementById('folderForm');
-      formDiv.style.display = "none";
-    }
-  }
-
-  recursiveAdd(arr, value, newFile) {
-    console.log("the args are",arr, value, newFile);
+  recursiveAdd(arr, value, newFile) { 
     arr.forEach(i => {
       if (i.name == value && i.type == 'folder') {
         i.children = [...i.children, {
