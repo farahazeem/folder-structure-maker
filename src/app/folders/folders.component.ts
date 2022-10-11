@@ -53,7 +53,7 @@ export class FoldersComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("name")).value = '';
     }
   }
-
+ 
   hideForm() {
     const formDiv = document.getElementById('folderForm');
 
@@ -127,6 +127,7 @@ export class FoldersComponent implements OnInit {
         i.children = [...i.children, {
           type: this.typeOfFolder,
           name: newFile,
+          children: [],
           id: '16'
         }]
       } else {
