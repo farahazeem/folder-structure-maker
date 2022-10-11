@@ -128,7 +128,7 @@ export class FoldersComponent implements OnInit {
           type: this.typeOfFolder,
           name: newFile,
           children: [],
-          id: '16'
+          id: Math.random().toString()
         }]
       } else {
         this.recursiveAdd(i.children ? i.children : [], value, newFile)
